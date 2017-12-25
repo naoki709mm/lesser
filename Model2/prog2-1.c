@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define N 50
+#define N 20
 
 void print_queens(int Q[N][N],int n){ /*配列Qを探索し1だと●、0だと空白を表示する関数*/
   int x,y;
@@ -37,5 +37,11 @@ void make_W(double W[N][N][N][N],int n){
   }
 }
 
-doule energy(int x[N][N],double W[N][N][N][N],int n){
+/*doule energy(int x[N][N],double W[N][N][N][N],int n){
   double E=0.0;
+*/
+
+int main(void){
+  double W[N][N][N][N]={0};
+  int x[N][N]
+  
