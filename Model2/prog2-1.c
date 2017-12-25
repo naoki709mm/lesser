@@ -24,7 +24,18 @@ int delta(int x,int y){
 
 void make_W(double W[N][N][N][N],int n){
   int i,j,k,l;
-  
+  for(i=0;i<n;i++){
+    for(j=0;j<n;j++){
+      for(k=0;k<n;k++){
+	for(l=0;l<n;l++){
+	  W[i][j][k][l]=delta(i,k)*(1-delta(j,l))+delta(j,l)*(1-delta(i,k));
+	  W[i][j][k][l]+=delta(i+j,k+l)*(1-delta(i,k));
+	  W[i][j][k][l]+=delta(i-j,k-l)*(1-delta(i,k));
+	}
+      }
+    }
+  }
+}
 
 doule energy(int x[N][N],double W[N][N][N][N],int n){
   double E=0.0;
