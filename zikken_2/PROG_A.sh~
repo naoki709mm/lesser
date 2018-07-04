@@ -1,0 +1,11 @@
+#!/bin/sh
+
+NAME=$1
+
+./EMG_prog.sh $NAME
+
+NAME=${NAME::-4}.dat
+echo $NAME
+
+./getdat.sh $NAME
+

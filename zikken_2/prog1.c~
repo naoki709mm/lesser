@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+#define T 10
+#define X_START 0
+#define X_END 20000
+int main(void){
+  FILE *fr;
+  FILE *fw;
+  FILE *gp;
+  int i=0,j,k;
+  int delta_T=T;
+  float x[20000]={};
+  float a[20000]={};
+  char y[20000]={};
+  
+  if((fr=fopen("bandpass.dat,"r"))==NULL)
+    printf("エラー");
+  else{
+    if((fw=fopen("EMG.dat","w"))==NULL)
+      printf("エラー");
+    else{
+      while(fscanf(fr,"%s",y)!=EOF){
+	x[i]=fabsf(atof(y));
+	i++;
+      }
+      fclose(fr);
+      for(j=T;j<i-T;j++){
+	for(k=-delta_T;k<delta_T;k++){
+	  a[j]+=x[j+k];
+	}
+	a[j]/=delta_T;
+      }
+      for(i=T;i<j;i++){
+	fprintf(fw,"%lf\n",a[i]);
+      }
+      fclose(fw);
+      gp=popen("gnuplot -persist","w");
+      fprintf(gp,"set xrange [X_START:X_END]\n");
+      
+      fprintf(gp, "plot '-' with lines linetype 1\n");
+      for(k=X_START;k<X_END;k++){
+      	fprintf(gp,"%lf\n",a[k]);
+      }
+      fprintf(gp,"e\n");
+    }
+  }
+  return 0;
+}

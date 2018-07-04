@@ -1,0 +1,79 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 100000
+int main(int argc,char *argv[]){
+  int i,j=0,k=0;
+  int sample;
+  int mark;
+  int num;
+  int dim;
+  char sean[10];
+  char s[10];
+  char temp[100]={};
+  float x[N][10]={},y[N][10]={};
+  float time;
+  FILE *fr;
+  FILE *fw[10];
+  char filename[100];
+  sample=atoi(argv[1]);
+  time=1/(float)sample;
+  mark=atoi(argv[2]);
+  
+  if((fr=fopen(argv[3],"r"))==NULL){
+    printf("ファイルを開けませんでした\n");
+    return -1;
+  }
+  for(i=0;i<mark;i++){
+    sprintf(filename,"%d-%s",i+1,argv[3]);
+    if((fw[i]=fopen(filename,"w"))==NULL){
+      printf("%d-%sを開けませんでした\n",i,argv[3]);
+      return -1;
+    }
+  }
+  
+  fscanf(fr,"%s\n",temp);
+  for(i=0;i<100;i++){
+    if(temp[i]==',')
+      num++;
+  }
+  
+  dim=(num-1)/mark;
+  
+  rewind(fr);
+  while(!feof(fr)){
+    for(i=0;i<2+dim*mark;i++){
+      if(i==0){
+	fscanf(fr,"%[^,],",sean);
+      }
+      else if(i==1){
+	fscanf(fr,"%[^,],",s);
+      }
+      else if(i>=2 && i<2+mark){
+	fscanf(fr,"%[^,],",temp);
+	x[j][i-2]=atof(temp);
+      }
+      else if(i>=2+mark && i<1+2*mark){
+	fscanf(fr,"%[^,],",temp);
+	y[j][i-2-mark]=atof(temp);
+      }
+      else{
+	fscanf(fr,"%s\n",temp);
+	y[j][i-2-mark]=atof(temp);
+      }
+    }
+    j++;
+  }
+  
+  for(j=0;j<atoi(sean);j++){
+    for(i=0;i<mark;i++){
+      fprintf(fw[i],"%6.3f,%6.2f,%6.2f\n",j*time,x[j][i],y[j][i]);
+    }
+  }
+  
+  fclose(fr);
+  for(i=0;i<mark;i++){
+    fclose(fw[i]);
+  }
+  
+  return 0;
+}

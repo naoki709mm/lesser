@@ -1,0 +1,16 @@
+#!/bin/sh
+
+NAME=$1
+NAME_H=${NAME:0:2}
+NAME_T=${NAME:5}
+
+sed -n 1p $1 > subcut.dat
+WC=$(wc -w subcut.dat)
+DIM=${WC:0:1}
+
+if [ $DIM = 3 ]; then
+    cut -f 2-3 -d , $1 > $NAME_H'xy'$NAME_T
+fi
+if [ $DIM = 4 ]; then
+    cut -f 2-4 -d , $1 > $NAME_H'xyz'$NAME_T
+fi

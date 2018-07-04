@@ -1,0 +1,8 @@
+#!/bin/bash
+
+sed -e 's/^[,]*//' $1 > sample.csv
+sed -e 's/["]*//' sample.csv > /dev/null
+egrep -v ^'[0-9]' sample.csv > info-joints.dat
+egrep ^'[0-9]' sample.csv > pos-joints.dat
+
+rm sample.csv

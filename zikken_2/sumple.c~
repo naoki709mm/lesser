@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 10000
+int main(int argc,char *argv[]){
+  int i,j=0,k=0;
+  int sample;
+  int mark;
+  int num=0;
+  int dim;
+  int sean;
+  double s[10];
+  double x[N][10]={},y[N][10]={};
+  double time;
+  FILE *fr;
+  FILE *fw[10];
+  char filename[100];
+  char temp[100];
+  sample=atoi(argv[1]);
+  time=1/(float)sample;
+  mark=atoi(argv[2]);
+  
+  if((fr=fopen(argv[3],"r"))==NULL){
+    printf("ファイルを開けませんでした\n");
+    return -1;
+  }
+  
+  fscanf(fr,"%s\n",temp);
+  for(i=0;i<100;i++){
+    if(temp[i]==',')
+      num++;
+  }
+  
+  dim=(num-1)/mark;
+  printf("a\n");
+  while(!feof(fr)){
+    for(i=0;i<2+dim*mark;i++){
+      if(i==0){
+	fscanf(fr,"%d",&sean);
+      }
+      else if(i==1){
+	fscanf(fr,",%lf",&s);
+      }
+      else if(i>=2 && i<2+mark){
+	fscanf(fr,",%lf",&x[j][i-2]);
+      }
+      else if(i>=2+mark && i<=1+2*mark){
+	fscanf(fr,",%lf",&y[j][i-2-mark]);
+      }
+    }
+    fscanf(fr,"\n");
+    printf("%d,%lf,%lf,%lf,%lf,%lf,%lf,%lf\n",sean,s,x[0],x[1],x[2],y[0],y[1],y[2]);
+    j++;
+  }
+
+
+  fclose(fr);
+  return 0;
+}
+  

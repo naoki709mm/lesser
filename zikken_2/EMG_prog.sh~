@@ -1,0 +1,11 @@
+#!/bin/sh
+
+NAME=$1
+
+python bandpass.py $NAME
+
+A=${NAME::-4}
+B=".dat"
+C=$A$B
+
+./prog_emg $C

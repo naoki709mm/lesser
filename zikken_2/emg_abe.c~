@@ -1,0 +1,28 @@
+#include<stdio.h>
+int main(int argc,char *argv[]){
+  FILE *fr;
+  FILE *fw;
+  int i=0,j=0;
+  double x=0;
+  double y;
+  char filename[100];
+
+  if((fr=fopen(argv[1],"r"))==NULL)
+    printf("エラー\n");
+  else{
+    spritnf(filename,"AVE-%s",argv[1]);
+    if((fw=fopen(filename,"w"))==NULL)
+      printf("エラー\n");
+    else
+      while(fscanf(fr,"%lf",y)!=EOF){
+	x+=y;
+	j++;
+	if(j==4){
+	  x=j+1;
+	  fprintf(fw,"%lf\n",x);
+	  j=0;
+	}
+      }
+  }
+  return 0;
+}
