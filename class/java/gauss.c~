@@ -1,0 +1,21 @@
+#include<stdio.h>
+
+#define N 10
+
+int main(int argc ,char argv[]){
+  int i=0,j=0;
+  int gas[N]={};
+  char f_name=argv[1];
+  FILE *fr;
+
+  if((fr=fopen(f_name,"r") == NULL))
+    printf("ファイルが開けません\n");
+  else{
+    while(!feof(fr)){
+      fscanf(fr,"%d",gas[i][j]);
+    }
+  }
+  fclose(fr);
+  
+  return 0;
+}
