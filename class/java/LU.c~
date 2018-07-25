@@ -1,0 +1,45 @@
+#include<stdio.h>
+
+#define N 10
+#define M 100
+
+int main(int argc ,char *argv[]){
+  char f_name[M];
+  
+  sprintf(f_name,"%s",argv[1]);
+
+  if((fr=fopen(f_name,"r")) == NULL)
+    printf("ファイルが開けません\n");
+  else{
+    fgets(temp,L,fr);
+    for(i=0 ;i<L ;i++){
+      if(temp[i]>='0' && temp[i]<='9'){
+	x_n++;
+      }
+    }
+    
+    rewind(fr);
+    
+    i=0;
+    
+    while(!feof(fr)){
+      for(j=0 ;j<x_n ;j++){
+	if(j < x_n-1)
+	  fscanf(fr,"%lf",&a_b[i][j]);
+	else
+	  fscanf(fr,"%lf\n",&a_b[i][j]);
+      }
+      i++;
+    }
+    fclose(fr);
+  }
+  
+  sum=i;
+  for(i=0 ;i<sum ;i++){
+    for(j=0 ;j<x_n ;j++){
+      printf(" %lf ",a_b[i][j]);
+    }
+    printf("\n");
+  }
+  return 0;
+}

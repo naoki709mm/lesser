@@ -4,37 +4,47 @@
 #define M 100
 #define L 100
 
-void s_gauss(int n ,double x[] ,double a[][N] ,double b[]){
+void intlz_lu(int n ,double a[][N] ,double l[][N] ,double u[][N]){
+  int i,j;
+  
+  for(i=0 ;i<n ;i++){
+    for(j=0 ;j<n ;j++){
+      u[i][j]=a[i][j];
+    }
+  }
+  
+  for(i=0 ;i<n ;i++){
+    for(j=0 ;j<n ;j++){
+      if(i == j)
+	l[i][j]=1.0;
+      else
+	l[i][j]=0.0;
+    }
+  }
+}
+
+void lu(int n ,double a[][N] ,double l[][N] ,double u[][N]){
   int i,j,k;
   double mik;
   
   for(k=0 ;k<n-1 ;k++){
     for(i=k+1 ;i<n ;i++){
-      mik=a[i][k]/a[k][k];
+      mik=u[i][k]/u[k][k];
+      l[i][k]=mik;
+      u[i][k]=0.0;
       for(j=k+1 ;j<n ;j++){
-	a[i][j]-=mik*a[k][j];
+	u[i][j]-=mik*u[k][j];
       }
-      b[i]-=mik*b[k];
     }
-  }
-  
-  for(k=n-1 ;k>=0 ;k--){
-    x[k]=b[k];
-    for(i=k+1 ;i<n ;i++){
-      x[k]-=a[k][i]*x[i];
-    }
-    x[k]/=a[k][k];
   }
 }
 
 int main(int argc ,char *argv[]){
-  int i,j,k;
+  int i,j;
+  int sum=0;
   int x_n=0;
-  int sum;
-  double a_b[N][N];
   double a[N][N];
-  double x[N];
-  double b[N];
+  double l[N][N],u[N][N];
   char f_name[M];
   char temp[L]={};
   FILE *fr;
@@ -50,15 +60,17 @@ int main(int argc ,char *argv[]){
 	x_n++;
       }
     }
+    
     rewind(fr);
     
     i=0;
+    
     while(!feof(fr)){
       for(j=0 ;j<x_n ;j++){
 	if(j < x_n-1)
-	  fscanf(fr,"%lf",&a_b[i][j]);
+	  fscanf(fr,"%lf",&a[i][j]);
 	else
-	  fscanf(fr,"%lf\n",&a_b[i][j]);
+	  fscanf(fr,"%lf\n",&a[i][j]);
       }
       i++;
     }
@@ -66,35 +78,32 @@ int main(int argc ,char *argv[]){
   }
   
   sum=i;
-  for(i=0 ;i<sum ;i++){
-    for(j=0 ;j<x_n ;j++){
-      if(j < x_n-1){
-	a[i][j]=a_b[i][j];
-      }
-      else
-	b[i]=a_b[i][j];
-    }
-  }
-  
   printf("A=\n");
   for(i=0 ;i<sum ;i++){
-    for(j=0 ;j<x_n-1 ;j++){
+    for(j=0 ;j<x_n ;j++){
       printf(" %5.2f ",a[i][j]);
     }
     printf("\n");
   }
   
-  printf("\nb=\n");
+  intlz_lu(sum,a,l,u);
+  lu(sum,a,l,u);
+  
+  printf("\nL=\n");
   for(i=0 ;i<sum ;i++){
-    printf(" %5.2f\n",b[i]);
+    for(j=0 ;j<x_n ;j++){
+      printf(" %5.2f ",l[i][j]);
+    }
+    printf("\n");
   }
   
-  s_gauss(sum,x,a,b);
-  
-  printf("\nx=\n");
+  printf("\nU=\n");
   for(i=0 ;i<sum ;i++){
-    printf(" %5.2f\n",x[i]);
+    for(j=0 ;j<x_n ;j++){
+      printf(" %5.2f ",u[i][j]);
+    }
+    printf("\n");
   }
-
+  
   return 0;
 }
