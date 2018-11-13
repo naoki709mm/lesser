@@ -3,7 +3,7 @@
 \usepackage{enumerate}
 
 \title{複素関数論 レポート}
-\author{ 1422020156 奥屋 直己}
+\author{1422020156 奥屋 直己}
 
 \usepackage[height=26cm,width=16cm]{geometry}
 
@@ -16,7 +16,7 @@
 		\item $\frac{i}{2+3i}$\\
 			分母分子にに(2-3i)をかけると\\
 			\begin{eqnarray*}
-				\frac{i}{2+3i}=\frac{i(2-3i)}{(2+3i)(2-3i)}=\frac{2i-3i^2}{4+9i^2}=\frac{3+2i}{4-9}=-\frac{3}{5}-\frac{2}{5}i
+				\frac{i}{2+3i}=\frac{i(2-3i)}{(2+3i)(2-3i)}=\frac{2i-3i^2}{4+9i^2}=\frac{3+2i}{4+9}=-\frac{3}{13}-\frac{2}{13}i
 			\end{eqnarray*}
 			よって、複素共役数は
 			\[
@@ -50,8 +50,114 @@
 			\]
 			
 		\item $\log{(-2+2i)}$ \\
-			
-	\end{enumerate}
+                  $(-2+2i)$の絶対値を求めると
+                  \[
+                      \sqrt{(-2)^2+(2)^2}=\sqrt{8}=2\sqrt{2}
+                  \]
+                  複素数の公式より
+                  \[
+                      \log{(-2+2i)}=\log{|(-2+2i)|}+i\arg{(-2+2i)}=\log{2\sqrt{2}}+i\arg{(-2+2i)}
+                  \]
+                  よって複素共役は
+                  \[
+                  u^*=\log{2\sqrt{2}}-i\arg{(-2+2i)}
+                  \]
+\end{enumerate}
+\section{次の式を証明しなさい}
+\begin{enumerate}[(1)]
+  \item $(\sin{z})^*=\sin{z^*}$
+    オイラーの公式より
+    \[
+      e^{iz}=\cos{z}+i\sin{z}
+    \]
+    \[
+      e^{-iz}=\cos{z}-i\sin{z}
+    \]
+    これらを連立方程式で$i\sin{z}$について解く
+    \begin{eqnarray*}
+      e^{iz}-e^{-iz}&=&2i\sin{z} \\
+      \sin{z}&=&\frac{e^{iz}-e^{-iz}}{2i} \\
+      両辺にiをかけると&\\
+      &=&\frac{i(e^{-iz}-e^{iz})}{2} \\
+    \end{eqnarray*}
+    $z=a+bi$とおき、上記の式に代入すると
+    \begin{eqnarray*}
+      \sin{(a+bi)}&=&\frac{i(e^{-i(a+bi)}-e^{i(a+bi)})}{2} \\
+      &=&\frac{i(e^{(-ai+b)}-e^{(ai-b)})}{2} \\
+      &=&\frac{i(e^be^{-ai}-e^{-b}e^{ai})}{2} \\
+      &=&\frac{i((\cosh{b}+\sinh{b})(\cos{a}-i\sin{a})-(\cosh{b}-\sinh{b})(\cos{a}+i\sin{a}))}{2} \\
+      &=&\frac{i(-2i\sin{a}\cosh{b}+2\sinh{b}\cos{a})}{2} \\
+      &=&\sin{a}\cosh{b}+i\sinh{b}\cos{a}
+    \end{eqnarray*}
+    また、同様に$\sin{z^*}$は
+    \begin{eqnarray*}
+      \sin{z^*}=\sin{(a-bi)}\\
+      &=&\frac{i(e^{-i(a-bi)}-e^{i(a-bi)})}{2} \\
+      &=&\frac{i(-2i\sin{a}\cosh{b}-2\sinh{b}\cos{a})}{2}\\
+      &=&\sin{a}\cosh{b}-i\sinh{b}\cos{a}\\
+    \end{eqnarray*}
+    よって
+      \[
+        (\sin{z})^*=\sin{a}\cosh{b}-i\sinh{b}\cos{a}=\sin{z^*}
+      \]
+    となる。
+    \item ${\rm arccosh}\ z=\log{\{z+(z^2-1)^{\frac{1}{2}}\}}$
+      逆関数の定義より
+      \[
+      w={\rm arccosh}\ z
+      \]
+      とおくと
+      \[
+        z=\cosh{w}=\frac{e^w+e^{-w}}{2}
+      \]
+      よって
+      \[
+      u=e^w
+      \]
+      と置けば
+      \[
+      z=\cosh{w}=\frac{u+\frac{1}{u}}{2}
+      \]
+      より
+      \begin{eqnarray*}
+        2z&=&u+\frac{1}{u}\\
+        (u+z)^2-z^2+1&=&z^2-1\\
+        (z^2-1)は2価より  \\
+        u&=&z+(z^2-1)^{\frac{1}{2}} \\
+      \end{eqnarray*}
+      よって
+      \[
+      w={\rm arccosh}\ z=\log{\{z+(z^2-1)^{\frac{1}{2}}\}}
+      \]
+    \end{enumerate}
+
+\section{次の方程式の解をすべて求めなさい。ただし、zは複素数とする}
+\begin{enumerate}[(1)]
+  \item $z^6=1$
+    式変形すると
+    \begin{eqnarray*}
+      z^6&=&1\\
+      z^6-1&=&0\\
+      (z^3-1)(z^3+1)&=&0\\
+      (z+1)(z^2-z+1)(z-1)(z^2+z+1)&=&0\\
+    \end{eqnarray*}
+    $(z^2-z+1)=0$の解は
+    \begin{eqnarray*}
+      z&=&\frac{1\pm\sqrt{1^2-4*1*1}}{2*1}\\
+      &=&\frac{1\pm\sqrt{3}i}{2}
+    \end{eqnarray*}
+    同様に$(z^2+z+1)=0$の解は
+    \begin{eqnarray*}
+      z&=&\frac{-1\pm\sqrt{(-1)^2-4*1*1}}{2*1}\\
+      &=&\frac{-1\pm\sqrt{3}i}{2}
+    \end{eqnarray*}
+    よって
+    \[
+    z=\pm1,\frac{1\pm\sqrt{3}i}{2},\frac{-1\pm\sqrt{3}i}{2}
+    \]
+  \item $e^{2z}=2$
+    
+\end{enumerate}
 \end{document}
 
 
