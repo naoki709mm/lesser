@@ -23,7 +23,7 @@ void intlz_lu(int n ,double a[][N] ,double l[][N] ,double u[][N]){
   }
 }
 
-void lu(int n ,double a[][N] ,double l[][N] ,double u[][N]){
+void lu(int n ,double l[][N] ,double u[][N]){
   int i,j,k;
   double mik;
   
@@ -87,7 +87,7 @@ int main(int argc ,char *argv[]){
   }
   
   intlz_lu(sum,a,l,u);
-  lu(sum,a,l,u);
+  lu(sum,l,u);
   
   printf("\nL=\n");
   for(i=0 ;i<sum ;i++){

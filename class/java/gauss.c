@@ -4,10 +4,12 @@
 #define M 100
 #define L 100
 
+//ガウス消去法の関数
 void s_gauss(int n ,double x[] ,double a[][N] ,double b[]){
   int i,j,k;
   double mik;
-  
+
+  //ガウスの前進消去
   for(k=0 ;k<n-1 ;k++){
     for(i=k+1 ;i<n ;i++){
       mik=a[i][k]/a[k][k];
@@ -17,7 +19,8 @@ void s_gauss(int n ,double x[] ,double a[][N] ,double b[]){
       b[i]-=mik*b[k];
     }
   }
-  
+
+  //ガウスの後退代入
   for(k=n-1 ;k>=0 ;k--){
     x[k]=b[k];
     for(i=k+1 ;i<n ;i++){
@@ -38,21 +41,26 @@ int main(int argc ,char *argv[]){
   char f_name[M];
   char temp[L]={};
   FILE *fr;
-  
+
+  //引数から取ったファイル名をf_nameに代入
+  //ファイルには行列Aとbを複合した物を書き込んでおく
   sprintf(f_name,"%s",argv[1]);
   
   if((fr=fopen(f_name,"r")) == NULL)
     printf("ファイルが開けません\n");
   else{
-    fgets(temp,L,fr);
+    fgets(temp,L,fr); //ファイルの1行目だけ読み込み、数字の数を数える
     for(i=0 ;i<L ;i++){
       if(temp[i]>='0' && temp[i]<='9'){
 	x_n++;
       }
     }
-    rewind(fr);
+    
+    rewind(fr); //もう一度1行目から読み込む
     
     i=0;
+
+    //ファイルから値を読み込みそれぞれを配列a_bに代入
     while(!feof(fr)){
       for(j=0 ;j<x_n ;j++){
 	if(j < x_n-1)
@@ -64,8 +72,11 @@ int main(int argc ,char *argv[]){
     }
     fclose(fr);
   }
-  
+
+  //iの値は行数となるのでそれを変数sumに代入
   sum=i;
+
+  //ファイルから読み込んだ値を行列Aとbに分け、それぞれ配列a,bに代入
   for(i=0 ;i<sum ;i++){
     for(j=0 ;j<x_n ;j++){
       if(j < x_n-1){

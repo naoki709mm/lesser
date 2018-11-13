@@ -1,0 +1,67 @@
+\documentclass{jsarticle} 
+
+\usepackage{enumerate}
+
+\title{複素関数論 レポート}
+\author{ 1422020156 奥屋 直己}
+
+\usepackage[height=26cm,width=16cm]{geometry}
+
+\begin{document}
+
+\maketitle
+
+\section{次の式の複素共役な式を作りなさい}
+	\begin{enumerate}[(1)]
+		\item $\frac{i}{2+3i}$\\
+			分母分子にに(2-3i)をかけると\\
+			\begin{eqnarray*}
+				\frac{i}{2+3i}=\frac{i(2-3i)}{(2+3i)(2-3i)}=\frac{2i-3i^2}{4+9i^2}=\frac{3+2i}{4-9}=-\frac{3}{5}-\frac{2}{5}i
+			\end{eqnarray*}
+			よって、複素共役数は
+			\[
+				u^*=-\frac{3}{5}+\frac{2}{5}i
+			\]
+		\item $e^{(2+5i)π}$ \\
+			式変形を行うと
+			\[
+				e^{(2+5i)\pi}=e^{(2\pi+5i\pi)}=e^{2\pi}e^{5i\pi}
+			\]
+			オイラーの公式より
+			\[
+				e^{2\pi}e^{5i\pi}=e^{2\pi}(\cos5\pi+i\sin5\pi)=e^{2\pi}(1+0)=e^{2\pi}
+			\]
+			よって虚部が0になるため、複素共役は
+			\[
+				u^*=e^{2\pi}
+			\]
+		\item $(\sqrt{3}-i)^\frac{3}{2}$\\
+			$(\sqrt(3)-i)^3$を展開すると
+			\[
+				(\sqrt{3}-i)^3=(3-2\sqrt{3}i-1)(\sqrt{3}-i)=(2-2\sqrt{3})(\sqrt{3}-i)=2\sqrt{3}-2i-6i-2\sqrt{3}=-8i
+			\]
+			よって
+			\[
+				(\sqrt{3}-i)^\frac{3}{2}=\sqrt{-8i}=2\sqrt{2}i^2=-2\sqrt{2}
+			\]
+			よって虚部が0になったので、複素共役は
+			\[
+				u^*=-2\sqrt{2}
+			\]
+			
+		\item $\log{(-2+2i)}$ \\
+			
+	\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
